@@ -20,7 +20,11 @@ public class OtherTestReport {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "otherTestReport")
     private Appointment appointment;
 
+
+    @ManyToOne
+    @JoinColumn(name="ecg_type_id")
+    private ECGType ecgType;
+
     private String esr;
     private String crp;
-    private String ecg;
 }

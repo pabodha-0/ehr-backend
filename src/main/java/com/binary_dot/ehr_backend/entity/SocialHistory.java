@@ -6,21 +6,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "drug")
-public class Drug {
+@Table(name = "social_history")
+public class SocialHistory {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "drug", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<DrugDosage> drugDosage;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "socialHistory")
+    private Patient patient;
 
-    private String name;
+    private boolean alcoholic;
+    private boolean smoking;
 }

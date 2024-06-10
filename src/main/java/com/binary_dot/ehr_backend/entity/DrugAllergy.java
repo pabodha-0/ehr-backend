@@ -13,14 +13,14 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "drug")
-public class Drug {
+@Table(name = "drug_allergy")
+public class DrugAllergy {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "drug", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<DrugDosage> drugDosage;
+    @ManyToMany(mappedBy = "drugAllergies")
+    Set<Patient> patients;
 
     private String name;
 }

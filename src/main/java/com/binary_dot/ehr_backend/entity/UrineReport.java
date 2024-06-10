@@ -20,10 +20,17 @@ public class UrineReport {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "urineReport")
     private Appointment appointment;
 
+    @ManyToOne
+    @JoinColumn(name="urine_culture_id")
+    private UrineCultureType urineCultureType;
+
     private String albumin;
     private String sugar;
-    private int pus_cells;
-    private int red_cells;
-    private String urine_culture;
+
+    @Column(name = "pus_cells")
+    private int pusCells;
+
+    @Column(name = "red_cells")
+    private int redCells;
 
 }

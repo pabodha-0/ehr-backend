@@ -20,9 +20,18 @@ public class KidneyReport {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "kidneyReport")
     private Appointment appointment;
 
-    private String serum_creatinine;
-    private String blood_urea;
-    private String serum_electrolytes_na;
-    private String serum_electrolytes_k;
-    private String serum_electrolytes_cl;
+    @Column(name = "serum_creatinine")
+    private String serumCreatinine;
+
+    @Column(name = "blood_urea")
+    private String bloodUrea;
+
+    @Column(name = "serum_electrolytes_na")
+    private String serumElectrolytesNA;
+
+    @Column(name = "serum_electrolytes_k")
+    private String serumElectrolytesK;
+
+    @Column(name = "serum_electrolytes_cl")
+    private String serumElectrolytesCL;
 }

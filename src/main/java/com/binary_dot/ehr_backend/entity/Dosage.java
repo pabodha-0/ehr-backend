@@ -20,8 +20,8 @@ public class Dosage {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
 
-//    @OneToMany(mappedBy = "dosage", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<DrugDosage> drugDosage;
+    @OneToMany(mappedBy = "dosage", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<DrugDosage> drugDosage;
 
     private String dose;
 }

@@ -20,10 +20,16 @@ public class LipidProfile {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "lipidProfile")
     private Appointment appointment;
 
-    private String total_cholesterol;
-    private String s_tg;
+    @Column(name = "total_cholesterol")
+    private String totalCholesterol;
+
+    @Column(name = "s_tg")
+    private String stg;
+
     private String hdl;
     private String ldl;
-    private String cho_hdl;
+
+    @Column(name = "cho_hdl")
+    private String choHDL;
 
 }

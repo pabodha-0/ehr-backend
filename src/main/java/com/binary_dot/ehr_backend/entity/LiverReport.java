@@ -20,10 +20,21 @@ public class LiverReport {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "liverReport")
     private Appointment appointment;
 
-    private String gamma_gt;
-    private String sgot_ast;
-    private String sgpt_alt;
-    private String total_bilirubin;
-    private String direct_bilirubin;
-    private String indirect_bilirubin;
+    @Column(name = "gamma_gt")
+    private String gammaGT;
+
+    @Column(name = "sgot_ast")
+    private String sgotAST;
+
+    @Column(name = "sgpt_alt")
+    private String sgptALT;
+
+    @Column(name = "total_bilirubin")
+    private String totalBilirubin;
+
+    @Column(name = "direct_bilirubin")
+    private String directBilirubin;
+
+    @Column(name = "indirect_bilirubin")
+    private String indirectBilirubin;
 }

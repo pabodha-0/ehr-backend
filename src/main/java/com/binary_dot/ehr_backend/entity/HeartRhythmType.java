@@ -7,20 +7,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "drug")
-public class Drug {
+@Table(name = "heart_rhythm_type")
+public class HeartRhythmType {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "drug", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<DrugDosage> drugDosage;
+    @OneToMany(mappedBy = "heartRhythmType", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ExaminationReport> examinationReports;
 
     private String name;
 }

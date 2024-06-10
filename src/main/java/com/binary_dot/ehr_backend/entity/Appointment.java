@@ -27,7 +27,7 @@ public class Appointment {
     private Patient patient;
 
     @ManyToMany()
-    @JoinTable(name = "appointment_symptom", inverseJoinColumns = @JoinColumn(name = "appointment_id"))
+    @JoinTable(name = "appointment_symptom", inverseJoinColumns = @JoinColumn(name = "symptom_id"))
     Set<Symptom> symptoms;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
@@ -62,4 +62,7 @@ public class Appointment {
     @JoinColumn(name = "urine_report_id", nullable = false)
     private UrineReport urineReport;
 
+    @ManyToMany()
+    @JoinTable(name = "appointment_diagnosis", inverseJoinColumns = @JoinColumn(name = "diagnosis_id"))
+    Set<Diagnosis> diagnoses;
 }
