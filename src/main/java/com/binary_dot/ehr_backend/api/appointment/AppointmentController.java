@@ -8,13 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/appointment")
 public class AppointmentController {
     @Autowired
     AppointmentService appointmentService;
 
     @PostMapping()
-    public ResponseEntity<AppointmentDto> addAbdomenInfectionType(@Valid @RequestBody AppointmentDto type) {
+    public ResponseEntity<AppointmentDto> addAppointment(@Valid @RequestBody AppointmentDto type) {
         return new ResponseEntity<>(appointmentService.addEntry(type), HttpStatus.CREATED);
     }
 
