@@ -1,5 +1,6 @@
 package com.binary_dot.ehr_backend.api.urine_culture_type;
 
+import com.binary_dot.ehr_backend.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +26,16 @@ public class UrineCultureTypeImpl implements UrineCultureTypeService{
     }
 
     @Override
-    public UrineCultureTypeDto findById(int id) {
-        return null;
+    public UrineCultureTypeDto findById(int id) throws NotFoundException {
+        UrineCultureType urineCultureType = urineCultureTypeRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Not Found Urine Culture Type with Id: " + id)
+        );
+        return urineCultureTypeMapper.mapToDto(urineCultureType);
     }
 
     @Override
     public List<UrineCultureTypeDto> findAll() {
-        return List.of();
+        List<UrineCultureType> urineCultureTypes = urineCultureTypeRepository.findAll();
+        return urineCultureTypes.stream().map(type -> urineCultureTypeMapper.mapToDto(type)).toList();
     }
 }

@@ -1,5 +1,6 @@
 package com.binary_dot.ehr_backend.api.lungs_infection_type;
 
+import com.binary_dot.ehr_backend.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +26,16 @@ public class LungsInfectionTypeImpl implements LungsInfectionTypeService{
     }
 
     @Override
-    public LungsInfectionTypeDto findById(int id) {
-        return null;
+    public LungsInfectionTypeDto findById(int id) throws NotFoundException {
+        LungsInfectionType lungsInfectionType = lungsInfectionTypeRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Lungs Infection Type not found with id: " + id)
+        );
+        return lungsInfectionTypeMapper.mapToDto(lungsInfectionType);
     }
 
     @Override
     public List<LungsInfectionTypeDto> findAll() {
-        return List.of();
+        List<LungsInfectionType> lungsInfectionTypes = lungsInfectionTypeRepository.findAll();
+        return lungsInfectionTypes.stream().map(type -> lungsInfectionTypeMapper.mapToDto(type)).toList();
     }
 }

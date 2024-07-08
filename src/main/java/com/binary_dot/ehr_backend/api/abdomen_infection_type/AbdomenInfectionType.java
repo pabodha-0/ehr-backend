@@ -2,6 +2,9 @@ package com.binary_dot.ehr_backend.api.abdomen_infection_type;
 
 import com.binary_dot.ehr_backend.api.examination_report.ExaminationReport;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,5 +1,6 @@
 package com.binary_dot.ehr_backend.api.appointment;
 
+import com.binary_dot.ehr_backend.api.appointment_symptom.AppointmentSymptomDto;
 import com.binary_dot.ehr_backend.api.blood_report.BloodReportDto;
 import com.binary_dot.ehr_backend.api.diagnosis.DiagnosisDto;
 import com.binary_dot.ehr_backend.api.examination_report.ExaminationReportDto;
@@ -9,7 +10,6 @@ import com.binary_dot.ehr_backend.api.lipid_profile.LipidProfileDto;
 import com.binary_dot.ehr_backend.api.liver_report.LiverReportDto;
 import com.binary_dot.ehr_backend.api.other_test_report.OtherTestReportDto;
 import com.binary_dot.ehr_backend.api.patient.PatientDto;
-import com.binary_dot.ehr_backend.api.symptom.SymptomDto;
 import com.binary_dot.ehr_backend.api.thyroid_report.ThyroidReportDto;
 import com.binary_dot.ehr_backend.api.urine_report.UrineReportDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -30,8 +30,10 @@ public class AppointmentDto {
     @JsonIgnoreProperties("appointments")
     private PatientDto patient;
 
-    @JsonIgnoreProperties("appointments")
-    private List<SymptomDto> symptoms;
+    private int price;
+
+//    @JsonIgnoreProperties("appointments")
+    private List<AppointmentSymptomDto> appointmentSymptoms;
 
     private ExaminationReportDto examinationReport;
 

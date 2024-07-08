@@ -1,15 +1,19 @@
 package com.binary_dot.ehr_backend.api.appointment;
 
+import com.binary_dot.ehr_backend.api.appointment_symptom.*;
 import com.binary_dot.ehr_backend.api.blood_report.BloodReport;
 import com.binary_dot.ehr_backend.api.blood_report.BloodReportMapper;
 import com.binary_dot.ehr_backend.api.blood_report.BloodReportService;
 import com.binary_dot.ehr_backend.api.blood_sugar_report.BloodSugarReport;
 import com.binary_dot.ehr_backend.api.blood_sugar_report.BloodSugarReportMapper;
 import com.binary_dot.ehr_backend.api.blood_sugar_report.BloodSugarReportService;
+import com.binary_dot.ehr_backend.api.diagnosis.Diagnosis;
 import com.binary_dot.ehr_backend.api.diagnosis.DiagnosisMapper;
+import com.binary_dot.ehr_backend.api.diagnosis.DiagnosisService;
 import com.binary_dot.ehr_backend.api.examination_report.ExaminationReport;
 import com.binary_dot.ehr_backend.api.examination_report.ExaminationReportMapper;
 import com.binary_dot.ehr_backend.api.examination_report.ExaminationReportService;
+import com.binary_dot.ehr_backend.api.symptom.SymptomDto;
 import com.binary_dot.ehr_backend.exception.NotFoundException;
 import com.binary_dot.ehr_backend.api.kidney_report.KidneyReport;
 import com.binary_dot.ehr_backend.api.kidney_report.KidneyReportMapper;
@@ -57,6 +61,9 @@ public class AppointmentImpl implements AppointmentService {
     private SymptomService symptomService;
 
     @Autowired
+    private AppointmentSymptomService appointmentSymptomService;
+
+    @Autowired
     private ExaminationReportService examinationReportService;
 
     @Autowired
@@ -83,12 +90,18 @@ public class AppointmentImpl implements AppointmentService {
     @Autowired
     private UrineReportService urineReportService;
 
+    @Autowired
+    private DiagnosisService diagnosisService;
+
 //  External Mappers
     @Autowired
     private PatientMapper patientMapper;
 
     @Autowired
     private SymptomMapper symptomMapper;
+
+    @Autowired
+    private AppointmentSymptomMapper appointmentSymptomMapper;
 
     @Autowired
     private ExaminationReportMapper examinationReportMapper;
@@ -132,7 +145,7 @@ public class AppointmentImpl implements AppointmentService {
         OtherTestReport otherTestReport = otherTestReportMapper.mapToEntity(otherTestReportService.addOtherTestReport(appointmentDto.getOtherTestReport()));
         ThyroidReport thyroidReport = thyroidReportMapper.mapToEntity(thyroidReportService.addThyroidReport(appointmentDto.getThyroidReport()));
         UrineReport urineReport = urineReportMapper.mapToEntity(urineReportService.addUrineReport(appointmentDto.getUrineReport()));
-        List<Symptom> symptomList = symptomService.addSymptoms(appointmentDto.getSymptoms()).stream().map(symptom -> symptomMapper.mapToEntity(symptom)).toList();
+        List<Diagnosis> diagnosisList = diagnosisService.createDiagnoses(appointmentDto.getDiagnoses()).stream().map(diagnosis -> diagnosisMapper.mapToEntity(diagnosis)).toList();
 
         Appointment appointmentEntity = appointmentMapper.mapToEntity(appointmentDto);
         appointmentEntity.setPatient(patient);
@@ -145,10 +158,28 @@ public class AppointmentImpl implements AppointmentService {
         appointmentEntity.setOtherTestReport(otherTestReport);
         appointmentEntity.setThyroidReport(thyroidReport);
         appointmentEntity.setUrineReport(urineReport);
-        appointmentEntity.setSymptoms(symptomList);
+        appointmentEntity.setAppointmentSymptoms(null);
+        appointmentEntity.setDiagnoses(diagnosisList);
 
         Appointment appointment = appointmentRepository.save(appointmentEntity);
+
+        if(appointmentDto.getAppointmentSymptoms() != null){
+            for (AppointmentSymptomDto appointmentSymptomDto :  appointmentDto.getAppointmentSymptoms()) {
+                SymptomDto symptomDto = symptomService.addSymptom(appointmentSymptomDto.getSymptom());
+                appointmentSymptomDto.setAppointment(appointmentMapper.mapToDto(appointment));
+                appointmentSymptomDto.setSymptom(symptomDto);
+
+                appointmentSymptomService.createAppointmentSymptom(appointmentSymptomDto);
+            }
+        }
+
         return appointmentMapper.mapToDto(appointment);
+    }
+
+    @Override
+    public List<AppointmentDto> findAll() {
+        List<Appointment> appointments = appointmentRepository.findAll();
+        return appointments.stream().map(appointment -> appointmentMapper.mapToDto(appointment)).toList();
     }
 
     @Override

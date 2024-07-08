@@ -3,6 +3,7 @@ package com.binary_dot.ehr_backend.api.patient_relation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,12 +21,14 @@ public class PatientRelationImpl implements PatientRelationService {
     }
 
     @Override
-    public PatientRelationDto findById(int id) {
-        return null;
+    public List<PatientRelationDto> findAllByPatientId(int id) {
+        List<PatientRelation> patientRelations = patientRelationRepository.findByPatientId(id);
+        return patientRelations.stream().map(relation -> patientRelationMapper.mapToDto(relation)).toList();
     }
 
     @Override
     public List<PatientRelationDto> findAll() {
-        return List.of();
+        List<PatientRelation> patientRelations = patientRelationRepository.findAll();
+        return patientRelations.stream().map(relation -> patientRelationMapper.mapToDto(relation)).toList();
     }
 }

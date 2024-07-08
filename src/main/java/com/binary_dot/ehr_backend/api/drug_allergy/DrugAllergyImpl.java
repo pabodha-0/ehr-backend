@@ -1,10 +1,12 @@
 package com.binary_dot.ehr_backend.api.drug_allergy;
 
+import com.binary_dot.ehr_backend.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DrugAllergyImpl implements DrugAllergyService{
@@ -36,5 +38,21 @@ public class DrugAllergyImpl implements DrugAllergyService{
         }
 
         return drugAllergies;
+    }
+
+    @Override
+    public DrugAllergyDto findById(int id) throws NotFoundException {
+        Optional<DrugAllergy> drugAllergy = drugAllergyRepository.findById(id);
+        if(drugAllergy.isPresent()) {
+            return drugAllergyMapper.mapToDto(drugAllergy.get());
+        }
+
+        throw new NotFoundException("Drug Allergy not found by Id: " + id);
+    }
+
+    @Override
+    public List<DrugAllergyDto> findAll() {
+        List<DrugAllergy> drugAllergies = drugAllergyRepository.findAll();
+        return drugAllergies.stream().map(allergy -> drugAllergyMapper.mapToDto(allergy)).toList();
     }
 }

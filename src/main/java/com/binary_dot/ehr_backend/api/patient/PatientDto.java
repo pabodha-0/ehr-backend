@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -28,13 +29,19 @@ public class PatientDto {
 
     private String gender;
 
-    private int dob;
+    private Date dob;
 
     private String address;
 
     private String phone;
 
     private String occupation;
+
+    private String height;
+
+    private String weight;
+
+    private int bmi;
 
     @JsonIgnoreProperties("patient")
     private List<AppointmentDto> appointments;

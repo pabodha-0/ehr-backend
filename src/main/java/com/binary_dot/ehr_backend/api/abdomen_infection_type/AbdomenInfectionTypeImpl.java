@@ -2,11 +2,10 @@ package com.binary_dot.ehr_backend.api.abdomen_infection_type;
 
 import com.binary_dot.ehr_backend.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @Service
 public class AbdomenInfectionTypeImpl implements AbdomenInfectionTypeService {
@@ -18,13 +17,16 @@ public class AbdomenInfectionTypeImpl implements AbdomenInfectionTypeService {
 
     @Override
     public AbdomenInfectionTypeDto addAbdomenInfectionType(AbdomenInfectionTypeDto abdomenInfectionTypeDto) {
-        List<AbdomenInfectionType> existingAbdomenInfectionType = abdomenInfectionTypeRepository.findByName(abdomenInfectionTypeDto.getName());
-        if (existingAbdomenInfectionType.isEmpty()) {
-            AbdomenInfectionType abdomenInfectionType = abdomenInfectionTypeRepository.save(abdomenInfectionTypeMapper.mapToEntity(abdomenInfectionTypeDto));
-            return abdomenInfectionTypeMapper.mapToDto(abdomenInfectionType);
-        }
+        if (abdomenInfectionTypeDto.getName() != null && !abdomenInfectionTypeDto.getName().isEmpty()) {
+            List<AbdomenInfectionType> existingAbdomenInfectionType = abdomenInfectionTypeRepository.findByName(abdomenInfectionTypeDto.getName());
+            if (existingAbdomenInfectionType.isEmpty()) {
+                AbdomenInfectionType abdomenInfectionType = abdomenInfectionTypeRepository.save(abdomenInfectionTypeMapper.mapToEntity(abdomenInfectionTypeDto));
+                return abdomenInfectionTypeMapper.mapToDto(abdomenInfectionType);
+            }
 
-        return abdomenInfectionTypeMapper.mapToDto(existingAbdomenInfectionType.getFirst());
+            return abdomenInfectionTypeMapper.mapToDto(existingAbdomenInfectionType.getFirst());
+
+        } else return null;
     }
 
     @Override
@@ -34,12 +36,10 @@ public class AbdomenInfectionTypeImpl implements AbdomenInfectionTypeService {
     }
 
     @Override
-    public ResponseEntity<AbdomenInfectionTypeDto> findById(int id) throws NotFoundException {
-        Optional<AbdomenInfectionType> abdomenInfectionType = abdomenInfectionTypeRepository.findById(id);
-        if (abdomenInfectionType.isPresent()) {
-            return ResponseEntity.ok(abdomenInfectionTypeMapper.mapToDto(abdomenInfectionType.get()));
-        }
-
-        throw new NotFoundException("Abdomen Infection Type Not Found By Id: " + id);
+    public AbdomenInfectionTypeDto findById(int id) throws NotFoundException {
+        AbdomenInfectionType abdomenInfectionType = abdomenInfectionTypeRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Not Found Abdomen Infection Type with id: " + id)
+        );
+        return abdomenInfectionTypeMapper.mapToDto(abdomenInfectionType);
     }
 }

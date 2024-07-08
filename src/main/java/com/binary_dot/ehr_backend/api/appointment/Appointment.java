@@ -1,7 +1,9 @@
 package com.binary_dot.ehr_backend.api.appointment;
 
+import com.binary_dot.ehr_backend.api.appointment_symptom.AppointmentSymptom;
 import com.binary_dot.ehr_backend.api.blood_report.BloodReport;
 import com.binary_dot.ehr_backend.api.blood_sugar_report.BloodSugarReport;
+import com.binary_dot.ehr_backend.api.diagnosis.Diagnosis;
 import com.binary_dot.ehr_backend.api.examination_report.ExaminationReport;
 import com.binary_dot.ehr_backend.api.symptom.Symptom;
 import com.binary_dot.ehr_backend.api.urine_report.UrineReport;
@@ -32,14 +34,15 @@ public class Appointment {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
 
+    private int price;
+
     @ManyToOne()
     @JoinColumn(name = "patient_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Patient patient;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "appointment_symptom", inverseJoinColumns = @JoinColumn(name = "symptom_id"))
-    List<Symptom> symptoms;
+    @OneToMany(mappedBy = "appointment")
+    private List<AppointmentSymptom> appointmentSymptoms;
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "examination_report_id")
@@ -77,7 +80,7 @@ public class Appointment {
     @JoinColumn(name = "urine_report_id")
     private UrineReport urineReport;
 
-//    @ManyToMany()
-//    @JoinTable(name = "appointment_diagnosis", inverseJoinColumns = @JoinColumn(name = "diagnosis_id"))
-//    List<Diagnosis> diagnoses;
+    @ManyToMany()
+    @JoinTable(name = "appointment_diagnosis", inverseJoinColumns = @JoinColumn(name = "diagnosis_id"))
+    List<Diagnosis> diagnoses;
 }

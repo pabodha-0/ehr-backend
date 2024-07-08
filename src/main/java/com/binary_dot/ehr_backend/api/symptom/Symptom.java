@@ -1,6 +1,7 @@
 package com.binary_dot.ehr_backend.api.symptom;
 
 import com.binary_dot.ehr_backend.api.appointment.Appointment;
+import com.binary_dot.ehr_backend.api.appointment_symptom.AppointmentSymptom;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,8 +21,8 @@ public class Symptom {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
 
-    @ManyToMany(mappedBy = "symptoms", cascade = CascadeType.MERGE)
-    List<Appointment> appointments;
+    @OneToMany(mappedBy = "symptom")
+    private List<AppointmentSymptom> appointmentSymptoms;
 
     private String name;
 }

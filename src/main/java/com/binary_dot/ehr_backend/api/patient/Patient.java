@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -30,13 +31,19 @@ public class Patient {
 
     private String gender;
 
-    private int dob;
+    private Date dob;
 
     private String address;
 
     private String phone;
 
     private String occupation;
+
+    private String height;
+
+    private String weight;
+
+    private int bmi;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Appointment> appointments;

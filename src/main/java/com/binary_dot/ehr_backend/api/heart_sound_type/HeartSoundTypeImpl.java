@@ -1,5 +1,6 @@
 package com.binary_dot.ehr_backend.api.heart_sound_type;
 
+import com.binary_dot.ehr_backend.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +26,16 @@ public class HeartSoundTypeImpl implements HeartSoundTypeService{
     }
 
     @Override
-    public HeartSoundTypeDto findById(int id) {
-        return null;
+    public HeartSoundTypeDto findById(int id) throws NotFoundException {
+        HeartSoundType heartSoundType = heartSoundTypeRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Not Found HeartSoundType with id " + id )
+        );
+        return heartSoundTypeMapper.mapToDto(heartSoundType);
     }
 
     @Override
     public List<HeartSoundTypeDto> findAll() {
-        return List.of();
+        List<HeartSoundType> heartSoundTypes = heartSoundTypeRepository.findAll();
+        return heartSoundTypes.stream().map(type -> heartSoundTypeMapper.mapToDto(type)).toList();
     }
 }

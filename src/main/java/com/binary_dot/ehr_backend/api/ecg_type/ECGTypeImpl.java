@@ -1,9 +1,11 @@
 package com.binary_dot.ehr_backend.api.ecg_type;
 
+import com.binary_dot.ehr_backend.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ECGTypeImpl implements ECGTypeService{
@@ -25,12 +27,18 @@ public class ECGTypeImpl implements ECGTypeService{
     }
 
     @Override
-    public ECGTypeDto findById(int id) {
-        return null;
+    public ECGTypeDto findById(int id) throws NotFoundException {
+        Optional<ECGType> ecgType = ecgTypeRepository.findById(id);
+        if(ecgType.isPresent()) {
+            return ecgTypeMapper.mapToDto(ecgType.get());
+        }
+
+        throw new NotFoundException("ECG type not found by id");
     }
 
     @Override
     public List<ECGTypeDto> findAll() {
-        return List.of();
+        List<ECGType> ecgTypeList = ecgTypeRepository.findAll();
+        return ecgTypeList.stream().map(type -> ecgTypeMapper.mapToDto(type)).toList();
     }
 }

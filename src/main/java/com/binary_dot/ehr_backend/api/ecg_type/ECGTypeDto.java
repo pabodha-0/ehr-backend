@@ -1,6 +1,7 @@
 package com.binary_dot.ehr_backend.api.ecg_type;
 
 import com.binary_dot.ehr_backend.api.other_test_report.OtherTestReportDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,8 @@ import java.util.List;
 public class ECGTypeDto {
     private int id;
 
-    private List<OtherTestReportDto> otherTestReports;
-
     private String name;
+
+    @JsonIgnore
+    private List<OtherTestReportDto> otherTestReports;
 }

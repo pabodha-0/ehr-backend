@@ -1,6 +1,7 @@
 package com.binary_dot.ehr_backend.api.heart_sound_type;
 
 import com.binary_dot.ehr_backend.api.examination_report.ExaminationReportDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,9 @@ import java.util.List;
 @AllArgsConstructor
 public class HeartSoundTypeDto {
     private int id;
-    private List<ExaminationReportDto> examinationReports;
+
     private String name;
+
+    @JsonIgnore
+    private List<ExaminationReportDto> examinationReports;
 }

@@ -68,14 +68,14 @@ public class ExaminationReport {
     private int pulse;
 
     @Column(name = "first_blood_pressure")
-    private int firstBloodPressure;
+    private String firstBloodPressure;
 
     @Column(name = "second_blood_pressure")
-    private int secondBloodPressure;
+    private String secondBloodPressure;
 
     @Column(name = "left_eye")
-    private int leftEye;
+    private String leftEye;
 
     @Column(name = "right_eye")
-    private int rightEye;
+    private String rightEye;
 }

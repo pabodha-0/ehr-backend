@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/appointment")
@@ -19,19 +21,15 @@ public class AppointmentController {
         return new ResponseEntity<>(appointmentService.addEntry(type), HttpStatus.CREATED);
     }
 
-//    @GetMapping()
-//    public ResponseEntity<List<AbdomenInfectionType.AbdomenInfectionTypeDto>> addAbdomenInfectionType() {
-//        return new ResponseEntity<>(abdomenInfectionTypeService.findAll(), HttpStatus.FOUND);
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<AbdomenInfectionType.AbdomenInfectionTypeDto> addAbdomenInfectionType(@PathVariable("id") int id) throws NotFoundException {
-//        return abdomenInfectionTypeService.findById(id);
-//    }
+    @GetMapping()
+    public ResponseEntity<List<AppointmentDto>> getAllAppointments() {
+        return new ResponseEntity<>(appointmentService.findAll(), HttpStatus.FOUND);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentDto> getAppointmentById(@PathVariable int id) throws NotFoundException {
-        return ResponseEntity.ok(appointmentService.findById(id));
+        return new ResponseEntity<>(appointmentService.findById(id), HttpStatus.FOUND);
     }
     
 }

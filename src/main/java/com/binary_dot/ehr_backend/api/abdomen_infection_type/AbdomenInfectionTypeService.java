@@ -8,5 +8,5 @@ import java.util.List;
 public interface AbdomenInfectionTypeService {
     AbdomenInfectionTypeDto addAbdomenInfectionType(AbdomenInfectionTypeDto abdomenInfectionTypeDto);
     List<AbdomenInfectionTypeDto> findAll();
-    ResponseEntity<AbdomenInfectionTypeDto> findById(int id) throws NotFoundException;
+    AbdomenInfectionTypeDto findById(int id) throws NotFoundException;
 }

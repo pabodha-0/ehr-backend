@@ -27,7 +27,7 @@ public class AbdomenInfectionTypeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<AbdomenInfectionTypeDto> findAbdomenInfectionTypeById(@PathVariable("id") int id) throws NotFoundException {
-        return abdomenInfectionTypeService.findById(id);
+        return new ResponseEntity<>(abdomenInfectionTypeService.findById(id), HttpStatus.FOUND);
     }
     
 }

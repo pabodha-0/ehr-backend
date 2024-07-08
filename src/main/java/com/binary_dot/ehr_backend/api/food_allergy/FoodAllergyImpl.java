@@ -1,5 +1,6 @@
 package com.binary_dot.ehr_backend.api.food_allergy;
 
+import com.binary_dot.ehr_backend.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,20 @@ public class FoodAllergyImpl implements FoodAllergyService{
         }
 
         return foodAllergies;
+    }
+
+    @Override
+    public FoodAllergyDto findById(int id) throws NotFoundException {
+        FoodAllergy foodAllergy = foodAllergyRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Food Allergy not found by id: " + id)
+        );
+        return foodAllergyMapper.mapToDto(foodAllergy);
+    }
+
+    @Override
+    public List<FoodAllergyDto> findAll() {
+        List<FoodAllergy> foodAllergies = foodAllergyRepository.findAll();
+        return foodAllergies.stream().map(allergy -> foodAllergyMapper.mapToDto(allergy)).toList();
     }
 
 

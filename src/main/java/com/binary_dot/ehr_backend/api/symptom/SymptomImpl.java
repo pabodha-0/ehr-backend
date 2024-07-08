@@ -1,5 +1,6 @@
 package com.binary_dot.ehr_backend.api.symptom;
 
+import com.binary_dot.ehr_backend.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,19 @@ public class SymptomImpl implements SymptomService{
         }
 
         return symptoms;
+    }
+
+    @Override
+    public SymptomDto findById(int id) throws NotFoundException {
+        Symptom symptom = symptomRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Symptom not found by Id: " + id)
+        );
+        return symptomMapper.mapToDto(symptom);
+    }
+
+    @Override
+    public List<SymptomDto> findAll() {
+        List<Symptom> symptoms = symptomRepository.findAll();
+        return symptoms.stream().map(symptom -> symptomMapper.mapToDto(symptom)).toList();
     }
 }

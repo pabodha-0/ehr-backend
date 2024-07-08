@@ -1,6 +1,7 @@
 package com.binary_dot.ehr_backend.api.diagnosis;
 
 import com.binary_dot.ehr_backend.api.appointment.AppointmentDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 public class DiagnosisDto {
     private int id;
-    private List<AppointmentDto> appointments;
+
     private String name;
+
+    @JsonIgnore
+    private List<AppointmentDto> appointments;
 }

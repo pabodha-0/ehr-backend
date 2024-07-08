@@ -24,6 +24,7 @@ import com.binary_dot.ehr_backend.api.nose_infection_type.NoseInfectionTypeMappe
 import com.binary_dot.ehr_backend.api.throat_infection_type.ThroatInfectionType;
 import com.binary_dot.ehr_backend.api.throat_infection_type.ThroatInfectionTypeMapper;
 import com.binary_dot.ehr_backend.api.throat_infection_type.ThroatInfectionTypeService;
+import com.binary_dot.ehr_backend.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -114,12 +115,16 @@ public class ExaminationReportImpl implements ExaminationReportService{
     }
 
     @Override
-    public ExaminationReportDto findById(int id) {
-        return null;
+    public ExaminationReportDto findById(int id) throws NotFoundException {
+        ExaminationReport examinationReport = examinationReportRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Examination report not found by Id: " + id)
+        );
+        return examinationReportMapper.mapToDto(examinationReport);
     }
 
     @Override
     public List<ExaminationReportDto> findAll() {
-        return List.of();
+        List<ExaminationReport> examinationReports = examinationReportRepository.findAll();
+        return examinationReports.stream().map(report -> examinationReportMapper.mapToDto(report)).toList();
     }
 }

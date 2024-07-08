@@ -1,5 +1,6 @@
 package com.binary_dot.ehr_backend.api.nose_infection_type;
 
+import com.binary_dot.ehr_backend.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +26,16 @@ public class NoseInfectionTypeImpl implements NoseInfectionTypeService {
     }
 
     @Override
-    public NoseInfectionTypeDto findById(int id) {
-        return null;
+    public NoseInfectionTypeDto findById(int id) throws NotFoundException {
+        NoseInfectionType noseInfectionType = noseInfectionTypeRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Not Found Nose Infection Type with Id"+ id)
+        );
+        return noseInfectionTypeMapper.mapToDto(noseInfectionType);
     }
 
     @Override
     public List<NoseInfectionTypeDto> findAll() {
-        return List.of();
+        List<NoseInfectionType> noseInfectionTypeList = noseInfectionTypeRepository.findAll();
+        return noseInfectionTypeList.stream().map(type -> noseInfectionTypeMapper.mapToDto(type)).toList();
     }
 }
