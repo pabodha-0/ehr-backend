@@ -23,11 +23,11 @@ public class LungsInfectionTypeController {
 
     @GetMapping()
     public ResponseEntity<List<LungsInfectionTypeDto>> getAllLungsInfectionTypes() {
-        return new ResponseEntity<>(lungsInfectionTypeService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(lungsInfectionTypeService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<LungsInfectionTypeDto> getLungsInfectionTypeById(@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(lungsInfectionTypeService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(lungsInfectionTypeService.findById(id), HttpStatus.OK);
     }
 }

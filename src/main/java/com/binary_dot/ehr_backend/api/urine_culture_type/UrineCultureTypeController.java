@@ -23,11 +23,11 @@ public class UrineCultureTypeController {
 
     @GetMapping()
     public ResponseEntity<List<UrineCultureTypeDto>> getAllUrineCultureTypes() {
-        return new ResponseEntity<>(urineCultureTypeService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(urineCultureTypeService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UrineCultureTypeDto> getUrineCultureTypeById(@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(urineCultureTypeService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(urineCultureTypeService.findById(id), HttpStatus.OK);
     }
 }

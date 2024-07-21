@@ -22,11 +22,11 @@ public class ExaminationReportController {
 
     @GetMapping()
     public ResponseEntity<List<ExaminationReportDto>> getAllExaminationReports() {
-        return new ResponseEntity<>(examinationReportService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(examinationReportService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ExaminationReportDto> getExaminationReportById(@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(examinationReportService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(examinationReportService.findById(id), HttpStatus.OK);
     }
 }

@@ -23,13 +23,13 @@ public class AppointmentController {
 
     @GetMapping()
     public ResponseEntity<List<AppointmentDto>> getAllAppointments() {
-        return new ResponseEntity<>(appointmentService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(appointmentService.findAll(), HttpStatus.OK);
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentDto> getAppointmentById(@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(appointmentService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(appointmentService.findById(id), HttpStatus.OK);
     }
     
 }

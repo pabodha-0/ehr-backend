@@ -23,11 +23,11 @@ public class ECGTypeController {
 
     @GetMapping()
     public ResponseEntity<List<ECGTypeDto>> getAllECGTypes() {
-        return new ResponseEntity<>(ecgTypeService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(ecgTypeService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ECGTypeDto> getECGTypeById(@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(ecgTypeService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(ecgTypeService.findById(id), HttpStatus.OK);
     }
 }

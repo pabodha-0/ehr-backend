@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Instant;
 import java.util.List;
 
 @Getter
@@ -32,27 +33,40 @@ public class AppointmentDto {
 
     private int price;
 
-//    @JsonIgnoreProperties("appointments")
+    @JsonIgnoreProperties("appointment")
     private List<AppointmentSymptomDto> appointmentSymptoms;
 
+    @JsonIgnoreProperties("appointment")
     private ExaminationReportDto examinationReport;
 
+    @JsonIgnoreProperties("appointment")
     private BloodReportDto bloodReport;
 
+    @JsonIgnoreProperties("appointment")
     private BloodSugarReportDto bloodSugarReport;
 
+    @JsonIgnoreProperties("appointment")
     private KidneyReportDto kidneyReport;
 
+    @JsonIgnoreProperties("appointment")
     private LipidProfileDto lipidProfile;
 
+    @JsonIgnoreProperties("appointment")
     private LiverReportDto liverReport;
 
+    @JsonIgnoreProperties("appointment")
     private OtherTestReportDto otherTestReport;
 
+    @JsonIgnoreProperties("appointment")
     private ThyroidReportDto thyroidReport;
 
+    @JsonIgnoreProperties("appointment")
     private UrineReportDto urineReport;
 
     @JsonIgnoreProperties("appointments")
     private List<DiagnosisDto> diagnoses;
+
+    private Instant createdOn;
+
+    private Instant lastUpdatedOn;
 }

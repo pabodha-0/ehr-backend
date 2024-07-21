@@ -23,11 +23,11 @@ public class FoodAllergyController {
 
     @GetMapping()
     public ResponseEntity<List<FoodAllergyDto>> getAllFoodAllergies() {
-        return new ResponseEntity<>(foodAllergyService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(foodAllergyService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<FoodAllergyDto> getFoodAllergyById(@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(foodAllergyService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(foodAllergyService.findById(id), HttpStatus.OK);
     }
 }

@@ -23,11 +23,11 @@ public class LymphNodeInfectionTypeController {
 
     @GetMapping()
     public ResponseEntity<List<LymphNodeInfectionTypeDto>> getAllLymphNodeInfectionTypes() {
-        return new ResponseEntity<>(lymphNodeInfectionTypeService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(lymphNodeInfectionTypeService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<LymphNodeInfectionTypeDto> getLymphNodeInfectionTypeById(@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(lymphNodeInfectionTypeService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(lymphNodeInfectionTypeService.findById(id), HttpStatus.OK);
     }
 }

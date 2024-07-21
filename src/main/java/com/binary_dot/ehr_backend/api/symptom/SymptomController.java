@@ -23,11 +23,11 @@ public class SymptomController {
 
     @GetMapping()
     public ResponseEntity<List<SymptomDto>> getAllSymptoms() {
-        return new ResponseEntity<>(symptomService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(symptomService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<SymptomDto> getSymptomById(@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(symptomService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(symptomService.findById(id), HttpStatus.OK);
     }
 }

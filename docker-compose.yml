@@ -1,11 +1,10 @@
-version: "3.7"
 services:
   ehr-api:
     image: ehr-api
-    restart: always
+#    restart: always
     build: .
     ports:
-      - 8080-8999:8080
+      - 5555:5555
     environment:
       MYSQL_HOST: mysqldb
       MYSQL_USER: root

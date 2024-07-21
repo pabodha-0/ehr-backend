@@ -20,6 +20,9 @@ import com.binary_dot.ehr_backend.api.surgical_history.SurgicalHistoryMapper;
 import com.binary_dot.ehr_backend.api.surgical_history.SurgicalHistoryService;
 import com.binary_dot.ehr_backend.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -117,8 +120,9 @@ public class PatientImpl implements PatientService {
     }
 
     @Override
-    public List<PatientDto> findAll() {
-        List<Patient> patients = patientRepository.findAll();
-        return patients.stream().map(patient -> patientMapper.mapToDto(patient)).toList();
+    public Page<PatientDto> findAll(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Patient> patients = patientRepository.findAll(pageable);
+        return patients.map(patient -> patientMapper.mapToDto(patient));
     }
 }

@@ -12,7 +12,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +34,8 @@ public class Patient {
     private String name;
 
     private String gender;
+
+    private int age;
 
     private Date dob;
 
@@ -68,9 +74,15 @@ public class Patient {
     @JoinTable(name = "patient_drug_allergy", inverseJoinColumns = @JoinColumn(name = "drug_allergy_id"))
     private List<DrugAllergy> drugAllergies;
 
-//    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<PatientRelation> relations;
+//    @OneToMany(mappedBy = "relatedPatient", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<PatientRelation> inverseRelations;
 
-    @OneToMany(mappedBy = "relatedPatient", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PatientRelation> relations;
+
+    @CreationTimestamp(source = SourceType.DB)
+    private Instant createdOn;
+
+    @UpdateTimestamp(source = SourceType.DB)
+    private Instant lastUpdatedOn;
 }

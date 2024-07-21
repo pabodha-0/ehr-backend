@@ -14,13 +14,15 @@ import com.binary_dot.ehr_backend.api.kidney_report.KidneyReport;
 import com.binary_dot.ehr_backend.api.liver_report.LiverReport;
 import com.binary_dot.ehr_backend.api.patient.Patient;
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @Entity
@@ -83,4 +85,10 @@ public class Appointment {
     @ManyToMany()
     @JoinTable(name = "appointment_diagnosis", inverseJoinColumns = @JoinColumn(name = "diagnosis_id"))
     List<Diagnosis> diagnoses;
+
+    @CreationTimestamp(source = SourceType.DB)
+    private Instant createdOn;
+
+    @UpdateTimestamp(source = SourceType.DB)
+    private Instant lastUpdatedOn;
 }

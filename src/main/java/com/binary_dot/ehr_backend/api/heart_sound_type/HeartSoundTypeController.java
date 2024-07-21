@@ -23,11 +23,11 @@ public class HeartSoundTypeController {
 
     @GetMapping()
     public ResponseEntity<List<HeartSoundTypeDto>> getAllHeartSoundTypes() {
-        return new ResponseEntity<>(heartSoundTypeService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(heartSoundTypeService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<HeartSoundTypeDto> getHeartSoundTypeById(@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(heartSoundTypeService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(heartSoundTypeService.findById(id), HttpStatus.OK);
     }
 }

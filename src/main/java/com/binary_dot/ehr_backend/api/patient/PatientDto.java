@@ -14,7 +14,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +31,8 @@ public class PatientDto {
     private String name;
 
     private String gender;
+
+    private int age;
 
     private Date dob;
 
@@ -61,9 +66,12 @@ public class PatientDto {
     @JsonIgnoreProperties("patients")
     private List<DrugAllergyDto> drugAllergies;
 
-//    @JsonIgnoreProperties("fromPatient")
-//    private List<PatientRelationDto> fromPatientRelations;
-
 //    @JsonIgnore
+//    private List<PatientRelationDto> inverseRelations;
+
     private List<PatientRelationDto> relations;
+
+    private Instant createdOn;
+
+    private Instant lastUpdatedOn;
 }

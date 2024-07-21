@@ -23,11 +23,11 @@ public class DiagnosisController {
 
     @GetMapping()
     public ResponseEntity<List<DiagnosisDto>> getAllDiagnoses() {
-        return new ResponseEntity<>(diagnosisService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(diagnosisService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<DiagnosisDto> getDiagnosisById(@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(diagnosisService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(diagnosisService.findById(id), HttpStatus.OK);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/abdomen-infection-type")
 public class AbdomenInfectionTypeController {
     @Autowired
@@ -22,12 +23,12 @@ public class AbdomenInfectionTypeController {
 
     @GetMapping()
     public ResponseEntity<List<AbdomenInfectionTypeDto>> getAllAbdomenInfectionTypes() {
-        return new ResponseEntity<>(abdomenInfectionTypeService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(abdomenInfectionTypeService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AbdomenInfectionTypeDto> findAbdomenInfectionTypeById(@PathVariable("id") int id) throws NotFoundException {
-        return new ResponseEntity<>(abdomenInfectionTypeService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(abdomenInfectionTypeService.findById(id), HttpStatus.OK);
     }
     
 }

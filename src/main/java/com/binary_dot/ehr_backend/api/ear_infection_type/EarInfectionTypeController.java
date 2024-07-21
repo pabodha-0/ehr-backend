@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/ear-infection")
+@RequestMapping("/api/ear-infection-type")
 public class EarInfectionTypeController {
     @Autowired
     private EarInfectionTypeService earInfectionTypeService;
@@ -23,11 +23,11 @@ public class EarInfectionTypeController {
 
     @GetMapping()
     public ResponseEntity<List<EarInfectionTypeDto>> getAllEarInfectionTypes() {
-        return new ResponseEntity<>(earInfectionTypeService.findAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(earInfectionTypeService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<EarInfectionTypeDto> getEarInfectionTypeById(@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(earInfectionTypeService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(earInfectionTypeService.findById(id), HttpStatus.OK);
     }
 }
