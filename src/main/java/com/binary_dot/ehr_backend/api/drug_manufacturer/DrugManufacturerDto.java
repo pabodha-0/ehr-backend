@@ -1,4 +1,4 @@
-package com.binary_dot.ehr_backend.api.drug;
+package com.binary_dot.ehr_backend.api.drug_manufacturer;
 
 import com.binary_dot.ehr_backend.api.drug_info.DrugInfoDto;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DrugDto {
+public class DrugManufacturerDto {
     private int id;
 
     private String name;

@@ -1,4 +1,4 @@
-package com.binary_dot.ehr_backend.api.drug_intake_frequency;
+package com.binary_dot.ehr_backend.api.treatment;
 
 import com.binary_dot.ehr_backend.api.treatment_drug_external.TreatmentDrugExternal;
 import com.binary_dot.ehr_backend.api.treatment_drug_internal.TreatmentDrugInternal;
@@ -15,20 +15,15 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "drug_intake_frequency")
-public class DrugIntakeFrequency {
+@Table(name = "treatment")
+public class Treatment {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
 
-    private String name;
-
-    @Column(name = "times_per_day")
-    private int timesPerDay;
-
-    @OneToMany(mappedBy = "drugIntakeFrequency", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "treatment")
     private List<TreatmentDrugInternal> treatmentDrugInternalList;
 
-    @OneToMany(mappedBy = "drugIntakeFrequency", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "treatment")
     private List<TreatmentDrugExternal> treatmentDrugExternalList;
 }

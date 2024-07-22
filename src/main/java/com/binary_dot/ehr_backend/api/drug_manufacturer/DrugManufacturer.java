@@ -1,4 +1,4 @@
-package com.binary_dot.ehr_backend.api.drug;
+package com.binary_dot.ehr_backend.api.drug_manufacturer;
 
 import com.binary_dot.ehr_backend.api.drug_info.DrugInfo;
 import jakarta.persistence.*;
@@ -14,14 +14,14 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "drug")
-public class Drug {
+@Table(name = "drug_manufacturer")
+public class DrugManufacturer {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
 
     private String name;
 
-    @OneToMany(mappedBy = "drug", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "drugManufacturer", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<DrugInfo> drugInfoList;
 }

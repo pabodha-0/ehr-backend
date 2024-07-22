@@ -1,4 +1,4 @@
-package com.binary_dot.ehr_backend.api.drug_intake_frequency;
+package com.binary_dot.ehr_backend.api.treatment;
 
 import com.binary_dot.ehr_backend.api.treatment_drug_external.TreatmentDrugExternalDto;
 import com.binary_dot.ehr_backend.api.treatment_drug_internal.TreatmentDrugInternalDto;
@@ -13,12 +13,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DrugIntakeFrequencyDto {
+public class TreatmentDto {
     private int id;
-
-    private String name;
-
-    private int timesPerDay;
 
     private List<TreatmentDrugInternalDto> treatmentDrugInternalList;
 
