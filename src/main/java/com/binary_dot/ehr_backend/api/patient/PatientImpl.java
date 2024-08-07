@@ -148,7 +148,7 @@ public class PatientImpl implements PatientService {
                 startTime = System.currentTimeMillis();
                 patientRelationService.createPatientRelation(relation);
                 endTime = System.currentTimeMillis();
-                logger.info("Time taken for PatientRelationService.createPatientRelation: {} ms", endTime - startTime);
+                logger.info("Time taken for PatientRelationService .createPatientRelation: {} ms", endTime - startTime);
             }
         }
 
