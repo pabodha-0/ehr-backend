@@ -54,11 +54,19 @@ public class ExaminationReportDto {
 
     private int pulse;
 
-    private String firstBloodPressure;
+    private String firstSystolicBloodPressure;
 
-    private String secondBloodPressure;
+    private String firstDiastolicBloodPressure;
 
-    private String leftEye;
+    private String secondSystolicBloodPressure;
 
-    private String rightEye;
+    private String secondDiastolicBloodPressure;
+
+    private String leftEyeFirstValue;
+
+    private String leftEyeSecondValue;
+
+    private String rightEyeFirstValue;
+
+    private String rightEyeSecondValue;
 }

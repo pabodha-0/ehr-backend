@@ -16,6 +16,9 @@ public class LungsInfectionTypeImpl implements LungsInfectionTypeService{
 
     @Override
     public LungsInfectionTypeDto addLungsInfectionType(LungsInfectionTypeDto lungsInfectionTypeDto) {
+        if(lungsInfectionTypeDto == null) {
+            return null;
+        }
         List<LungsInfectionType> existingLungsInfectionTypes = lungsInfectionTypeRepository.findByName(lungsInfectionTypeDto.getName());
         if(existingLungsInfectionTypes.isEmpty()){
             LungsInfectionType lungsInfectionType = lungsInfectionTypeRepository.save(lungsInfectionTypeMapper.mapToEntity(lungsInfectionTypeDto));

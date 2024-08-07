@@ -17,6 +17,9 @@ public class KidneyReportImpl implements KidneyReportService{
 
     @Override
     public KidneyReportDto addKidneyReport(KidneyReportDto kidneyReportDto) {
+        if(kidneyReportDto == null) {
+            return null;
+        }
         KidneyReport kidneyReport = kidneyReportRepository.save(kidneyReportMapper.mapToEntity(kidneyReportDto));
         return kidneyReportMapper.mapToDto(kidneyReport);
     }

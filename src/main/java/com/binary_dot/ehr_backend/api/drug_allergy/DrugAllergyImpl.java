@@ -18,6 +18,9 @@ public class DrugAllergyImpl implements DrugAllergyService{
 
     @Override
     public DrugAllergyDto addDrugAllergy(DrugAllergyDto drugAllergyDto) {
+        if(drugAllergyDto == null) {
+            return null;
+        }
         List<DrugAllergy> existingDrugAllergies = drugAllergyRepository.findByName(drugAllergyDto.getName());
         if (existingDrugAllergies.isEmpty()) {
             DrugAllergy drugAllergy = drugAllergyRepository.save(drugAllergyMapper.mapToEntity(drugAllergyDto));

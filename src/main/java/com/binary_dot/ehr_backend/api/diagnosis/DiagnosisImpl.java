@@ -18,6 +18,9 @@ public class DiagnosisImpl implements DiagnosisService {
 
     @Override
     public DiagnosisDto createDiagnosis(DiagnosisDto diagnosisDto) {
+        if(diagnosisDto == null) {
+            return null;
+        }
         List<Diagnosis> existingDiagnosis = diagnosisRepository.findByName(diagnosisDto.getName());
         if (existingDiagnosis.isEmpty()) {
             Diagnosis diagnosis = diagnosisRepository.save(diagnosisMapper.mapToEntity(diagnosisDto));

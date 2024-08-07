@@ -17,6 +17,9 @@ public class SymptomImpl implements SymptomService{
 
     @Override
     public SymptomDto addSymptom(SymptomDto symptomDto) {
+        if(symptomDto == null) {
+            return null;
+        }
         List<Symptom> existingSymptom = symptomRepository.findByName(symptomDto.getName());
         if(existingSymptom.isEmpty()) {
             Symptom symptom = symptomRepository.save(symptomMapper.mapToEntity(symptomDto));

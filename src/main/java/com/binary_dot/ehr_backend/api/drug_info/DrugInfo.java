@@ -27,9 +27,9 @@ public class DrugInfo {
 
     private int qty;
 
-    private Date expDate;
+    private String expDate;
 
-    private String Dosage;
+    private String dosage;
 
     @ManyToOne()
     @JoinColumn(name = "drug_manufacturer_id")

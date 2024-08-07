@@ -15,6 +15,9 @@ public class AppointmentSymptomImpl implements AppointmentSymptomService {
 
     @Override
     public AppointmentSymptomDto createAppointmentSymptom(AppointmentSymptomDto appointmentSymptomDto) {
+        if(appointmentSymptomDto == null) {
+            return null;
+        }
         AppointmentSymptom appointmentSymptom = appointmentSymptomRepository.save(appointmentSymptomMapper.mapToEntity(appointmentSymptomDto));
         return appointmentSymptomMapper.mapToDto(appointmentSymptom);
     }

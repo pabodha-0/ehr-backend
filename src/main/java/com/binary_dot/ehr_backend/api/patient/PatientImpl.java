@@ -1,5 +1,6 @@
 package com.binary_dot.ehr_backend.api.patient;
 
+import com.binary_dot.ehr_backend.api.appointment.AppointmentImpl;
 import com.binary_dot.ehr_backend.api.drug_allergy.DrugAllergy;
 import com.binary_dot.ehr_backend.api.drug_allergy.DrugAllergyMapper;
 import com.binary_dot.ehr_backend.api.drug_allergy.DrugAllergyService;
@@ -19,6 +20,8 @@ import com.binary_dot.ehr_backend.api.surgical_history.SurgicalHistory;
 import com.binary_dot.ehr_backend.api.surgical_history.SurgicalHistoryMapper;
 import com.binary_dot.ehr_backend.api.surgical_history.SurgicalHistoryService;
 import com.binary_dot.ehr_backend.exception.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,6 +33,8 @@ import java.util.Optional;
 
 @Service
 public class PatientImpl implements PatientService {
+    private static final Logger logger = LoggerFactory.getLogger(AppointmentImpl.class);
+
     @Autowired
     private PatientRepository patientRepository;
 
@@ -76,17 +81,47 @@ public class PatientImpl implements PatientService {
 
     @Override
     public PatientDto addPatient(PatientDto patientDto) {
+        logger.info("Start adding Patient ----------------");
+        long startTime, endTime, totalStartTime, totalEndTime;
+
+        if (patientDto == null) {
+            return null;
+        }
+        totalStartTime = System.currentTimeMillis();
         Optional<Patient> existingPatient = patientRepository.findById(patientDto.getId());
         if (existingPatient.isPresent()) {
             return patientMapper.mapToDto(existingPatient.get());
         }
-        Patient patientEntity = patientMapper.mapToEntity(patientDto);
 
+        startTime = System.currentTimeMillis();
+        Patient patientEntity = patientMapper.mapToEntity(patientDto);
+        endTime = System.currentTimeMillis();
+        logger.info("Time taken for Checking for existing patient: {} ms", endTime - startTime);
+
+        startTime = System.currentTimeMillis();
         MedicalHistory medicalHistory = medicalHistoryMapper.mapToEntity(medicalHistoryService.addMedicalHistory(patientDto.getMedicalHistory()));
+        endTime = System.currentTimeMillis();
+        logger.info("Time taken for MedicalHistoryService: {} ms", endTime - startTime);
+
+        startTime = System.currentTimeMillis();
         SocialHistory socialHistory = socialHistoryMapper.mapToEntity(socialHistoryService.addSocialHistory(patientDto.getSocialHistory()));
+        endTime = System.currentTimeMillis();
+        logger.info("Time taken for SocialHistoryService: {} ms", endTime - startTime);
+
+        startTime = System.currentTimeMillis();
         SurgicalHistory surgicalHistory = surgicalHistoryMapper.mapToEntity(surgicalHistoryService.addSurgicalHistory(patientDto.getSurgicalHistory()));
+        endTime = System.currentTimeMillis();
+        logger.info("Time taken for SurgicalHistoryService: {} ms", endTime - startTime);
+
+        startTime = System.currentTimeMillis();
         List<FoodAllergy> foodAllergies = foodAllergyService.addFoodAllergies(patientDto.getFoodAllergies()).stream().map(allergy -> foodAllergyMapper.mapToEntity(allergy)).toList();
+        endTime = System.currentTimeMillis();
+        logger.info("Time taken for FoodAllergyService: {} ms", endTime - startTime);
+
+        startTime = System.currentTimeMillis();
         List<DrugAllergy> drugAllergies = drugAllergyService.addDrugAllergies(patientDto.getDrugAllergies()).stream().map(allergy -> drugAllergyMapper.mapToEntity(allergy)).toList();
+        endTime = System.currentTimeMillis();
+        logger.info("Time taken for DrugAllergyService: {} ms", endTime - startTime);
 
         patientEntity.setMedicalHistory(medicalHistory);
         patientEntity.setSocialHistory(socialHistory);
@@ -95,20 +130,32 @@ public class PatientImpl implements PatientService {
         patientEntity.setDrugAllergies(drugAllergies);
         patientEntity.setRelations(null);
 
+        startTime = System.currentTimeMillis();
         Patient patient = patientRepository.save(patientEntity);
+        endTime = System.currentTimeMillis();
+        logger.info("Time taken for PatientRepository.save: {} ms", endTime - startTime);
 
         if (patientDto.getRelations() != null) {
             for (PatientRelationDto relation : patientDto.getRelations()) {
+                startTime = System.currentTimeMillis();
                 PatientDto relatedPatient = addPatient(relation.getRelatedPatient());
+                endTime = System.currentTimeMillis();
+                logger.info("Time taken for addPatient (relation): {} ms", endTime - startTime);
 
                 relation.setPatient(patientMapper.mapToDto(patient));
                 relation.setRelatedPatient(relatedPatient);
 
+                startTime = System.currentTimeMillis();
                 patientRelationService.createPatientRelation(relation);
+                endTime = System.currentTimeMillis();
+                logger.info("Time taken for PatientRelationService.createPatientRelation: {} ms", endTime - startTime);
             }
         }
 
-        return patientMapper.mapToDto(patient);
+        totalEndTime = System.currentTimeMillis();
+        PatientDto patientDto1 = patientMapper.mapToDto(patient);
+        logger.info("Time taken for Whole Patient: {} ms", totalEndTime - totalStartTime);
+        return patientDto1;
     }
 
     @Override

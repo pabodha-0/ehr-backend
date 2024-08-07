@@ -16,6 +16,9 @@ public class ThroatInfectionTypeImpl implements ThroatInfectionTypeService{
 
     @Override
     public ThroatInfectionTypeDto addThroatInfectionType(ThroatInfectionTypeDto throatInfectionTypeDto) {
+        if(throatInfectionTypeDto == null) {
+            return null;
+        }
         List<ThroatInfectionType> existingThroatInfectionType = throatInfectionTypeRepository.findByName(throatInfectionTypeDto.getName());
         if(existingThroatInfectionType.isEmpty()){
             ThroatInfectionType throatInfectionType = throatInfectionTypeRepository.save(throatInfectionTypeMapper.mapToEntity(throatInfectionTypeDto));

@@ -25,10 +25,15 @@ public class OtherTestReportImpl implements OtherTestReportService{
 
     @Override
     public OtherTestReportDto addOtherTestReport(OtherTestReportDto otherTestReportDto) {
+        if(otherTestReportDto == null) {
+            return null;
+        }
         OtherTestReport otherTestReportEntity = otherTestReportMapper.mapToEntity(otherTestReportDto);
 
-        ECGType ecgType = ecgTypeMapper.mapToEntity(ecgTypeService.createECGType(otherTestReportDto.getEcgType()));
-        otherTestReportEntity.setEcgType(ecgType);
+        if(otherTestReportDto.getEcgType() != null) {
+            ECGType ecgType = ecgTypeMapper.mapToEntity(ecgTypeService.createECGType(otherTestReportDto.getEcgType()));
+            otherTestReportEntity.setEcgType(ecgType);
+        }
 
         OtherTestReport otherTestReport = otherTestReportRepository.save(otherTestReportEntity);
         return otherTestReportMapper.mapToDto(otherTestReport);

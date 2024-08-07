@@ -17,6 +17,9 @@ public class EarInfectionTypeImpl implements EarInfectionTypeService {
 
     @Override
     public EarInfectionTypeDto addEarInfectionType(EarInfectionTypeDto earInfectionTypeDto) {
+        if(earInfectionTypeDto == null) {
+            return null;
+        }
         List<EarInfectionType> existingEarInfectionType= earInfectionTypeRepository.findByName(earInfectionTypeDto.getName());
 
         if(existingEarInfectionType.isEmpty()){

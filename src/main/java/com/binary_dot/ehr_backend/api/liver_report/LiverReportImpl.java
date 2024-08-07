@@ -17,6 +17,9 @@ public class LiverReportImpl implements LiverReportService{
 
     @Override
     public LiverReportDto addLiverReport(LiverReportDto liverReportDto) {
+        if(liverReportDto == null) {
+            return null;
+        }
         LiverReport liverReport = liverReportRepository.save(liverReportMapper.mapToEntity(liverReportDto));
         return liverReportMapper.mapToDto(liverReport);
     }

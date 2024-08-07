@@ -16,6 +16,9 @@ public class HeartSoundTypeImpl implements HeartSoundTypeService{
 
     @Override
     public HeartSoundTypeDto addHeartSoundType(HeartSoundTypeDto heartSoundTypeDto) {
+        if(heartSoundTypeDto == null) {
+            return null;
+        }
         List<HeartSoundType> existingHeartSoundType = heartSoundTypeRepository.findByName(heartSoundTypeDto.getName());
         if (existingHeartSoundType.isEmpty()) {
             HeartSoundType heartSoundType = heartSoundTypeRepository.save(heartSoundTypeMapper.mapToEntity(heartSoundTypeDto));

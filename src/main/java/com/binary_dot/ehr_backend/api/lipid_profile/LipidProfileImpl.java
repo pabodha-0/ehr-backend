@@ -17,6 +17,9 @@ public class LipidProfileImpl implements LipidProfileService{
 
     @Override
     public LipidProfileDto addLipidProfile(LipidProfileDto lipidProfileDto) {
+        if(lipidProfileDto == null) {
+            return null;
+        }
         LipidProfile lipidProfile = lipidProfileRepository.save(lipidProfileMapper.mapToEntity(lipidProfileDto));
         return lipidProfileMapper.mapToDto(lipidProfile);
     }

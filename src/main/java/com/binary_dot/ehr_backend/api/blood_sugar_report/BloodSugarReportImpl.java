@@ -17,6 +17,9 @@ public class BloodSugarReportImpl implements BloodSugarReportService {
 
     @Override
     public BloodSugarReportDto addBloodSugarReport(BloodSugarReportDto bloodSugarReportDto) {
+        if(bloodSugarReportDto == null) {
+            return null;
+        }
         BloodSugarReport bloodSugarReport = bloodSugarReportRepository.save(bloodSugarReportMapper.mapToEntity(bloodSugarReportDto));
         return bloodSugarReportMapper.mapToDto(bloodSugarReport);
     }

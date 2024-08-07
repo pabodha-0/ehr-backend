@@ -16,6 +16,9 @@ public class UrineCultureTypeImpl implements UrineCultureTypeService{
 
     @Override
     public UrineCultureTypeDto createUrineCultureType(UrineCultureTypeDto urineCultureTypeDto) {
+        if(urineCultureTypeDto == null) {
+            return null;
+        }
         List<UrineCultureType> existingUrineCultureType = urineCultureTypeRepository.findByName(urineCultureTypeDto.getName());
         if(existingUrineCultureType.isEmpty()) {
             UrineCultureType urineCultureType = urineCultureTypeRepository.save(urineCultureTypeMapper.mapToEntity(urineCultureTypeDto));

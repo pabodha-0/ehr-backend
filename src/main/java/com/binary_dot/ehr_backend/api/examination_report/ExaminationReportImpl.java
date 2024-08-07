@@ -90,25 +90,50 @@ public class ExaminationReportImpl implements ExaminationReportService{
 
     @Override
     public ExaminationReportDto createExaminationReport(ExaminationReportDto examinationReportDto) {
+        if(examinationReportDto == null) {
+            return null;
+        }
         ExaminationReport examinationReportEntity = examinationReportMapper.mapToEntity(examinationReportDto);
 
-        EarInfectionType earInfectionType = earInfectionTypeMapper.mapToEntity(earInfectionTypeService.addEarInfectionType(examinationReportDto.getEarInfectionType()));
-        NoseInfectionType noseInfectionType = noseInfectionTypeMapper.mapToEntity(noseInfectionService.addNoseInfectionType(examinationReportDto.getNoseInfectionType()));
-        ThroatInfectionType throatInfectionType = throatInfectionTypeMapper.mapToEntity(throatInfectionTypeService.addThroatInfectionType(examinationReportDto.getThroatInfectionType()));
-        AbdomenInfectionType abdomenInfectionType = abdomenInfectionTypeMapper.mapToEntity(abdomenInfectionTypeService.addAbdomenInfectionType(examinationReportDto.getAbdomenInfectionType()));
-        LymphNodeInfectionType lymphNodeInfectionType = lymphNodeInfectionTypeMapper.mapToEntity(lymphNodeInfectionTypeService.addLymphNodeInfectionType(examinationReportDto.getLymphNodeInfectionType()));
-        LungsInfectionType lungsInfectionType = lungsInfectionTypeMapper.mapToEntity(lungsInfectionTypeService.addLungsInfectionType(examinationReportDto.getLungsInfectionType()));
-        HeartSoundType heartSoundType = heartSoundTypeMapper.mapToEntity(heartSoundTypeService.addHeartSoundType(examinationReportDto.getHeartSoundType()));
-        HeartRhythmType heartRhythmType = heartRhythmTypeMapper.mapToEntity(heartRhythmTypeService.addHeartRhythmType(examinationReportDto.getHeartRhythmType()));
+        if(examinationReportDto.getEarInfectionType() != null) {
+            EarInfectionType earInfectionType = earInfectionTypeMapper.mapToEntity(earInfectionTypeService.addEarInfectionType(examinationReportDto.getEarInfectionType()));
+            examinationReportEntity.setEarInfectionType(earInfectionType);
+        }
 
-        examinationReportEntity.setEarInfectionType(earInfectionType);
-        examinationReportEntity.setNoseInfectionType(noseInfectionType);
-        examinationReportEntity.setThroatInfectionType(throatInfectionType);
-        examinationReportEntity.setAbdomenInfectionType(abdomenInfectionType);
-        examinationReportEntity.setLymphNodeInfectionType(lymphNodeInfectionType);
-        examinationReportEntity.setLungsInfectionType(lungsInfectionType);
-        examinationReportEntity.setHeartSoundType(heartSoundType);
-        examinationReportEntity.setHeartRhythmType(heartRhythmType);
+        if(examinationReportDto.getNoseInfectionType() != null) {
+            NoseInfectionType noseInfectionType = noseInfectionTypeMapper.mapToEntity(noseInfectionService.addNoseInfectionType(examinationReportDto.getNoseInfectionType()));
+            examinationReportEntity.setNoseInfectionType(noseInfectionType);
+        }
+
+        if(examinationReportDto.getThroatInfectionType() != null) {
+            ThroatInfectionType throatInfectionType = throatInfectionTypeMapper.mapToEntity(throatInfectionTypeService.addThroatInfectionType(examinationReportDto.getThroatInfectionType()));
+            examinationReportEntity.setThroatInfectionType(throatInfectionType);
+        }
+
+        if(examinationReportDto.getAbdomenInfectionType() != null) {
+            AbdomenInfectionType abdomenInfectionType = abdomenInfectionTypeMapper.mapToEntity(abdomenInfectionTypeService.addAbdomenInfectionType(examinationReportDto.getAbdomenInfectionType()));
+            examinationReportEntity.setAbdomenInfectionType(abdomenInfectionType);
+        }
+
+        if(examinationReportDto.getLymphNodeInfectionType() != null) {
+            LymphNodeInfectionType lymphNodeInfectionType = lymphNodeInfectionTypeMapper.mapToEntity(lymphNodeInfectionTypeService.addLymphNodeInfectionType(examinationReportDto.getLymphNodeInfectionType()));
+            examinationReportEntity.setLymphNodeInfectionType(lymphNodeInfectionType);
+        }
+
+        if(examinationReportDto.getLungsInfectionType() != null) {
+            LungsInfectionType lungsInfectionType = lungsInfectionTypeMapper.mapToEntity(lungsInfectionTypeService.addLungsInfectionType(examinationReportDto.getLungsInfectionType()));
+            examinationReportEntity.setLungsInfectionType(lungsInfectionType);
+        }
+
+        if(examinationReportDto.getHeartSoundType() != null) {
+            HeartSoundType heartSoundType = heartSoundTypeMapper.mapToEntity(heartSoundTypeService.addHeartSoundType(examinationReportDto.getHeartSoundType()));
+            examinationReportEntity.setHeartSoundType(heartSoundType);
+        }
+
+        if(examinationReportDto.getHeartRhythmType() != null) {
+            HeartRhythmType heartRhythmType = heartRhythmTypeMapper.mapToEntity(heartRhythmTypeService.addHeartRhythmType(examinationReportDto.getHeartRhythmType()));
+            examinationReportEntity.setHeartRhythmType(heartRhythmType);
+        }
 
         ExaminationReport examinationReport = examinationReportRepository.save(examinationReportEntity);
         return examinationReportMapper.mapToDto(examinationReport);

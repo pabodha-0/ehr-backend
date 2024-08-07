@@ -16,8 +16,9 @@ public class PatientRelationImpl implements PatientRelationService {
 
     @Override
     public PatientRelationDto createPatientRelation(PatientRelationDto patientRelationDto) {
-        System.out.println(patientRelationDto.getRelatedPatient().getId());
-        System.out.println(patientRelationDto.getPatient().getId());
+        if(patientRelationDto == null) {
+            return null;
+        }
         PatientRelation patientRelation = patientRelationRepository.save(patientRelationMapper.mapToEntity(patientRelationDto));
         return patientRelationMapper.mapToDto(patientRelation);
     }

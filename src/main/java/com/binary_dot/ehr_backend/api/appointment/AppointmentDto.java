@@ -11,8 +11,11 @@ import com.binary_dot.ehr_backend.api.liver_report.LiverReportDto;
 import com.binary_dot.ehr_backend.api.other_test_report.OtherTestReportDto;
 import com.binary_dot.ehr_backend.api.patient.PatientDto;
 import com.binary_dot.ehr_backend.api.thyroid_report.ThyroidReportDto;
+import com.binary_dot.ehr_backend.api.treatment_drug_external.TreatmentDrugExternalDto;
+import com.binary_dot.ehr_backend.api.treatment_drug_internal.TreatmentDrugInternalDto;
 import com.binary_dot.ehr_backend.api.urine_report.UrineReportDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -62,6 +65,12 @@ public class AppointmentDto {
 
     @JsonIgnoreProperties("appointment")
     private UrineReportDto urineReport;
+
+    @JsonIgnoreProperties("appointment")
+    private List<TreatmentDrugInternalDto> treatmentDrugInternalList;
+
+    @JsonIgnoreProperties("appointment")
+    private List<TreatmentDrugExternalDto> treatmentDrugExternalList;
 
     @JsonIgnoreProperties("appointments")
     private List<DiagnosisDto> diagnoses;

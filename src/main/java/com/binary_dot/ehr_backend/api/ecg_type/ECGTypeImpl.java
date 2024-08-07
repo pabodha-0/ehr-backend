@@ -17,6 +17,9 @@ public class ECGTypeImpl implements ECGTypeService{
 
     @Override
     public ECGTypeDto createECGType(ECGTypeDto ecgTypeDto) {
+        if(ecgTypeDto == null) {
+            return null;
+        }
         List<ECGType> existingECGType = ecgTypeRepository.findByName(ecgTypeDto.getName());
         if (existingECGType.isEmpty()) {
             ECGType ecgType = ecgTypeRepository.save(ecgTypeMapper.mapToEntity(ecgTypeDto));

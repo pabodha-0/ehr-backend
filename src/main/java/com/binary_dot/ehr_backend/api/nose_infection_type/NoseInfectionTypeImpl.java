@@ -16,6 +16,9 @@ public class NoseInfectionTypeImpl implements NoseInfectionTypeService {
 
     @Override
     public NoseInfectionTypeDto addNoseInfectionType(NoseInfectionTypeDto noseInfectionTypeDto) {
+        if(noseInfectionTypeDto == null) {
+            return null;
+        }
         List<NoseInfectionType> existingNoseInfectionType = noseInfectionTypeRepository.findByName(noseInfectionTypeDto.getName());
         if (existingNoseInfectionType.isEmpty()) {
             NoseInfectionType noseInfectionType = noseInfectionTypeRepository.save(noseInfectionTypeMapper.mapToEntity(noseInfectionTypeDto));

@@ -25,10 +25,15 @@ public class UrineReportImpl implements UrineReportService{
 
     @Override
     public UrineReportDto addUrineReport(UrineReportDto urineReportDto) {
+        if(urineReportDto == null) {
+            return null;
+        }
         UrineReport urineReportEntity = urineReportMapper.mapToEntity(urineReportDto);
 
-        UrineCultureType urineCultureType = urineCultureTypeMapper.mapToEntity(urineCultureTypeService.createUrineCultureType(urineReportDto.getUrineCultureType()));
-        urineReportEntity.setUrineCultureType(urineCultureType);
+        if(urineReportDto.getUrineCultureType() != null) {
+            UrineCultureType urineCultureType = urineCultureTypeMapper.mapToEntity(urineCultureTypeService.createUrineCultureType(urineReportDto.getUrineCultureType()));
+            urineReportEntity.setUrineCultureType(urineCultureType);
+        }
 
         UrineReport urineReport = urineReportRepository.save(urineReportEntity);
         return urineReportMapper.mapToDto(urineReport);

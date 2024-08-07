@@ -1,7 +1,7 @@
 package com.binary_dot.ehr_backend.api.treatment_drug_external;
 
+import com.binary_dot.ehr_backend.api.appointment.Appointment;
 import com.binary_dot.ehr_backend.api.drug_intake_frequency.DrugIntakeFrequency;
-import com.binary_dot.ehr_backend.api.treatment.Treatment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,9 +23,11 @@ public class TreatmentDrugExternal {
 
     private String name;
 
-    private int qty;
-
     private String dosage;
+
+    private int days;
+
+    private int qty;
 
     @ManyToOne()
     @JoinColumn(name = "drug_intake_frequency_id")
@@ -33,6 +35,6 @@ public class TreatmentDrugExternal {
     private DrugIntakeFrequency drugIntakeFrequency;
 
     @ManyToOne
-    @JoinColumn(name = "treatment_id")
-    private Treatment treatment;
+    @JoinColumn(name = "appointment_id")
+    private Appointment appointment;
 }

@@ -5,7 +5,8 @@ import com.binary_dot.ehr_backend.api.blood_report.BloodReport;
 import com.binary_dot.ehr_backend.api.blood_sugar_report.BloodSugarReport;
 import com.binary_dot.ehr_backend.api.diagnosis.Diagnosis;
 import com.binary_dot.ehr_backend.api.examination_report.ExaminationReport;
-import com.binary_dot.ehr_backend.api.symptom.Symptom;
+import com.binary_dot.ehr_backend.api.treatment_drug_external.TreatmentDrugExternal;
+import com.binary_dot.ehr_backend.api.treatment_drug_internal.TreatmentDrugInternal;
 import com.binary_dot.ehr_backend.api.urine_report.UrineReport;
 import com.binary_dot.ehr_backend.api.thyroid_report.ThyroidReport;
 import com.binary_dot.ehr_backend.api.other_test_report.OtherTestReport;
@@ -81,6 +82,12 @@ public class Appointment {
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "urine_report_id")
     private UrineReport urineReport;
+
+    @OneToMany(mappedBy = "appointment")
+    private List<TreatmentDrugInternal> treatmentDrugInternalList;
+
+    @OneToMany(mappedBy = "appointment")
+    private List<TreatmentDrugExternal> treatmentDrugExternalList;
 
     @ManyToMany()
     @JoinTable(name = "appointment_diagnosis", inverseJoinColumns = @JoinColumn(name = "diagnosis_id"))

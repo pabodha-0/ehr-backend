@@ -16,8 +16,12 @@ public class MedicalHistoryImpl implements MedicalHistoryService{
 
     @Override
     public MedicalHistoryDto addMedicalHistory(MedicalHistoryDto medicalHistoryDto) {
-        MedicalHistory medicalHistory = medicalHistoryRepository.save(medicalHistoryMapper.mapToEntity(medicalHistoryDto));
-        return medicalHistoryMapper.mapToDto(medicalHistory);
+        if(medicalHistoryDto == null) {
+            return null;
+        } else {
+            MedicalHistory medicalHistory = medicalHistoryRepository.save(medicalHistoryMapper.mapToEntity(medicalHistoryDto));
+            return medicalHistoryMapper.mapToDto(medicalHistory);
+        }
     }
 
     @Override

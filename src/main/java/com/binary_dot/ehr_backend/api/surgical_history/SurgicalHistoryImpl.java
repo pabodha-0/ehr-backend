@@ -16,6 +16,9 @@ public class SurgicalHistoryImpl implements SurgicalHistoryService {
 
     @Override
     public SurgicalHistoryDto addSurgicalHistory(SurgicalHistoryDto surgicalHistoryDto) {
+        if(surgicalHistoryDto == null) {
+            return null;
+        }
         SurgicalHistory surgicalHistory = surgicalHistoryRepository.save(surgicalHistoryMapper.mapToEntity(surgicalHistoryDto));
         return surgicalHistoryMapper.mapToDto(surgicalHistory);
     }

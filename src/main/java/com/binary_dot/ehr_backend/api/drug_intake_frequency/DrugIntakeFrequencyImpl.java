@@ -15,9 +15,11 @@ public class DrugIntakeFrequencyImpl implements DrugIntakeFrequencyService{
     @Autowired
     DrugIntakeFrequencyMapper drugIntakeFrequencyMapper;
 
-
     @Override
     public DrugIntakeFrequencyDto createDrugIntakeFrequency(DrugIntakeFrequencyDto drugIntakeFrequencyDto) {
+        if(drugIntakeFrequencyDto == null) {
+            return null;
+        }
         List<DrugIntakeFrequency> existingDrugIntakeFrequency = drugIntakeFrequencyRepository.findByName(drugIntakeFrequencyDto.getName());
         if(existingDrugIntakeFrequency.isEmpty()) {
             DrugIntakeFrequency drugIntakeFrequency = drugIntakeFrequencyRepository.save(drugIntakeFrequencyMapper.mapToEntity(drugIntakeFrequencyDto));

@@ -17,6 +17,9 @@ public class FoodAllergyImpl implements FoodAllergyService{
 
     @Override
     public FoodAllergyDto addFoodAllergy(FoodAllergyDto foodAllergyDto) {
+        if(foodAllergyDto == null) {
+            return null;
+        }
         List<FoodAllergy> existingFoodAllergies = foodAllergyRepository.findByName(foodAllergyDto.getName());
         if(existingFoodAllergies.isEmpty()){
             FoodAllergy foodAllergy = foodAllergyRepository.save(foodAllergyMapper.mapToEntity(foodAllergyDto));

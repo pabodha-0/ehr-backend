@@ -16,6 +16,9 @@ public class LymphNodeInfectionTypeImpl implements LymphNodeInfectionTypeService
 
     @Override
     public LymphNodeInfectionTypeDto addLymphNodeInfectionType(LymphNodeInfectionTypeDto lymphNodeInfectionTypeDto) {
+        if(lymphNodeInfectionTypeDto == null) {
+            return null;
+        }
         List<LymphNodeInfectionType> existingLymphNodeInfectionType = lymphNodeInfectionTypeRepository.findByName(lymphNodeInfectionTypeDto.getName());
         if(existingLymphNodeInfectionType.isEmpty()) {
             LymphNodeInfectionType lymphNodeInfectionType = lymphNodeInfectionTypeRepository.save(lymphNodeInfectionTypeMapper.mapToEntity(lymphNodeInfectionTypeDto));

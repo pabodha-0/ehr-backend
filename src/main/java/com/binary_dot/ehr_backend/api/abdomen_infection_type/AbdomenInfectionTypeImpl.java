@@ -17,16 +17,17 @@ public class AbdomenInfectionTypeImpl implements AbdomenInfectionTypeService {
 
     @Override
     public AbdomenInfectionTypeDto addAbdomenInfectionType(AbdomenInfectionTypeDto abdomenInfectionTypeDto) {
-        if (abdomenInfectionTypeDto.getName() != null && !abdomenInfectionTypeDto.getName().isEmpty()) {
-            List<AbdomenInfectionType> existingAbdomenInfectionType = abdomenInfectionTypeRepository.findByName(abdomenInfectionTypeDto.getName());
-            if (existingAbdomenInfectionType.isEmpty()) {
-                AbdomenInfectionType abdomenInfectionType = abdomenInfectionTypeRepository.save(abdomenInfectionTypeMapper.mapToEntity(abdomenInfectionTypeDto));
-                return abdomenInfectionTypeMapper.mapToDto(abdomenInfectionType);
-            }
+        if(abdomenInfectionTypeDto == null) {
+            return null;
+        }
 
-            return abdomenInfectionTypeMapper.mapToDto(existingAbdomenInfectionType.getFirst());
+        List<AbdomenInfectionType> existingAbdomenInfectionType = abdomenInfectionTypeRepository.findByName(abdomenInfectionTypeDto.getName());
+        if (existingAbdomenInfectionType.isEmpty()) {
+            AbdomenInfectionType abdomenInfectionType = abdomenInfectionTypeRepository.save(abdomenInfectionTypeMapper.mapToEntity(abdomenInfectionTypeDto));
+            return abdomenInfectionTypeMapper.mapToDto(abdomenInfectionType);
+        }
 
-        } else return null;
+        return abdomenInfectionTypeMapper.mapToDto(existingAbdomenInfectionType.getFirst());
     }
 
     @Override

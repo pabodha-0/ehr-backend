@@ -17,6 +17,9 @@ public class ThyroidReportImpl implements ThyroidReportService{
 
     @Override
     public ThyroidReportDto addThyroidReport(ThyroidReportDto thyroidReportDto) {
+        if(thyroidReportDto == null) {
+            return null;
+        }
         ThyroidReport thyroidReport = thyroidReportRepository.save(thyroidReportMapper.mapToEntity(thyroidReportDto));
         return thyroidReportMapper.mapToDto(thyroidReport);
     }

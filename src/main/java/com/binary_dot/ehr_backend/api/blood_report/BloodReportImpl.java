@@ -17,6 +17,9 @@ public class BloodReportImpl implements BloodReportService{
 
     @Override
     public BloodReportDto addBloodReport(BloodReportDto bloodReportDto) {
+        if(bloodReportDto == null) {
+            return null;
+        }
         BloodReport bloodReport = bloodReportRepository.save(bloodReportMapper.mapToEntity(bloodReportDto));
         return bloodReportMapper.mapToDto(bloodReport);
     }

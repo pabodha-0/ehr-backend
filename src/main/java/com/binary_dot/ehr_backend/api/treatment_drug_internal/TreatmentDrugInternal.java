@@ -1,8 +1,8 @@
 package com.binary_dot.ehr_backend.api.treatment_drug_internal;
 
+import com.binary_dot.ehr_backend.api.appointment.Appointment;
 import com.binary_dot.ehr_backend.api.drug_info.DrugInfo;
 import com.binary_dot.ehr_backend.api.drug_intake_frequency.DrugIntakeFrequency;
-import com.binary_dot.ehr_backend.api.treatment.Treatment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,16 +18,21 @@ import org.hibernate.annotations.OnDeleteAction;
 @AllArgsConstructor
 @Table(name = "treatment_drug_internal")
 public class TreatmentDrugInternal {
-    @EmbeddedId
-    TreatmentDrugInternalId id;
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private int id;
+
+    private String dosage;
+
+    private int days;
+
+    private int qty;
 
     @ManyToOne
-    @MapsId("treatmentId")
-    @JoinColumn(name = "treatment_id")
-    private Treatment treatment;
+    @JoinColumn(name = "appointment_id")
+    private Appointment appointment;
 
     @ManyToOne
-    @MapsId("drugInfoId")
     @JoinColumn(name = "drug_info_id")
     private DrugInfo drugInfo;
 

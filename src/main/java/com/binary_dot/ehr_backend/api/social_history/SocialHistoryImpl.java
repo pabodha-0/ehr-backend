@@ -16,6 +16,9 @@ public class SocialHistoryImpl implements SocialHistoryService {
 
     @Override
     public SocialHistoryDto addSocialHistory(SocialHistoryDto socialHistoryDto) {
+        if(socialHistoryDto == null) {
+            return null;
+        }
         SocialHistory socialHistory = socialHistoryRepository.save(socialHistoryMapper.mapToEntity(socialHistoryDto));
         return socialHistoryMapper.mapToDto(socialHistory);
     }

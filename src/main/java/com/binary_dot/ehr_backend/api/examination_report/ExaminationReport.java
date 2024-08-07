@@ -67,15 +67,27 @@ public class ExaminationReport {
 
     private int pulse;
 
-    @Column(name = "first_blood_pressure")
-    private String firstBloodPressure;
+    @Column(name = "first_systolic_blood_pressure")
+    private String firstSystolicBloodPressure;
 
-    @Column(name = "second_blood_pressure")
-    private String secondBloodPressure;
+    @Column(name = "first_diastolic_blood_pressure")
+    private String firstDiastolicBloodPressure;
 
-    @Column(name = "left_eye")
-    private String leftEye;
+    @Column(name = "second_systolic_blood_pressure")
+    private String secondSystolicBloodPressure;
 
-    @Column(name = "right_eye")
-    private String rightEye;
+    @Column(name = "second_diastolic_blood_pressure")
+    private String secondDiastolicBloodPressure;
+
+    @Column(name = "left_eye_first_value")
+    private String leftEyeFirstValue;
+
+    @Column(name = "left_eye_second_value")
+    private String leftEyeSecondValue;
+
+    @Column(name = "right_eye_first_value")
+    private String rightEyeFirstValue;
+
+    @Column(name = "right_eye_second_value")
+    private String rightEyeSecondValue;
 }

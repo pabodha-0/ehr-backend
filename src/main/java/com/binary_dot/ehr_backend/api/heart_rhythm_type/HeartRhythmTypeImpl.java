@@ -16,6 +16,9 @@ public class HeartRhythmTypeImpl implements HeartRhythmTypeService{
 
     @Override
     public HeartRhythmTypeDto addHeartRhythmType(HeartRhythmTypeDto heartRhythmTypeDto) {
+        if(heartRhythmTypeDto == null) {
+            return null;
+        }
         List<HeartRhythmType> existingHeartRhythmTypes = heartRhythmTypeRepository.findByName(heartRhythmTypeDto.getName());
         if(existingHeartRhythmTypes.isEmpty()){
             HeartRhythmType heartRhythmType = heartRhythmTypeRepository.save(heartRhythmTypeMapper.mapToEntity(heartRhythmTypeDto));
